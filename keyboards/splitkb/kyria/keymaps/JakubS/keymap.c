@@ -112,19 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 };
 
-void scroll(int direction, int speed) {
-    if (direction == 1) {
-    while (speed > 0) {
-        tap_code(KC_WH_D);
-        speed--;
-    }
-    } else {
-    while (speed > 0) {
-        tap_code(KC_WH_U);
-        speed--;
-    }
-    }
-}
+// void scroll(int direction, int speed) {
+//     if (direction == 1) {
+//     while (speed > 0) {
+//         tap_code(KC_WH_D);
+//         speed--;
+//     }
+//     } else {
+//     while (speed > 0) {
+//         tap_code(KC_WH_U);
+//         speed--;
+//     }
+//     }
+// }
 
 /* The encoder_update_user is a function.
  * It'll be called by QMK every time you turn the encoder.
@@ -148,9 +148,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
      keyboards will only have two, so this piece of code will suffice. */
   } else if (index == 1) { /* Second encoder */
     if (clockwise) {
-      scroll(1, 5);
+      register_code(KC_LCTL);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LCTL);
     } else {
-      scroll(0, 5);
+      register_code(KC_LCTL);
+      tap_code(KC_RIGHT);
+      unregister_code(KC_LCTL);
     }
   }
   return false;
